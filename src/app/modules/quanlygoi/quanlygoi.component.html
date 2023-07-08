@@ -1,0 +1,77 @@
+<div class="container">
+  <mat-form-field>
+    <mat-label>Tìm kiếm</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Nhập nội dung tìm kiếm ..." #input>
+
+  </mat-form-field>
+  <button mat-icon-button color="add" style="float: right; " (click)="addGoi()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <div class="mat-elevation-z8">
+    <mat-spinner *ngIf="isLoading" color="warn" diameter="20"></mat-spinner>
+    <table mat-table [dataSource]="dataSource" matSort class="custom-table">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> STT </th>
+        <td mat-cell *matCellDef="let row; let i = index" class="data-cell">
+          <div class="column-header">STT</div>
+          <div class="column-value">{{ i + 1 }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Tên gói Column -->
+      <ng-container matColumnDef="tenGoi">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Tên gói </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Tên gói</div>
+          <div class="column-value">{{ row.tenGoi }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Mô tả Column -->
+      <ng-container matColumnDef="moTa">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Mô tả </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Mô tả</div>
+          <div class="column-value">{{ row.moTa }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Phiên bản Column -->
+      <ng-container matColumnDef="phienBan">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Phiên bản </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Phiên bản</div>
+          <div class="column-value">{{ row.phienBan }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Nền tảng Column -->
+      <ng-container matColumnDef="nenTang">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Nền tảng </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Nền tảng</div>
+          <div class="column-value">{{ row.nenTang.tenNenTang}}</div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"></th>
+        <td mat-cell *matCellDef="let element" class="data-cell">
+          <div class="column-header">Thao tác</div>
+          <div class="column-value">
+            <button mat-icon-button color="primary" (click)="infoGoi(element.id)">
+              <mat-icon>info</mat-icon>
+            </button>
+            <a mat-icon-button color="primary" (click)="getDownloadUrl(element.id)">
+              <mat-icon>download</mat-icon>
+            </a>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="custom-row"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>

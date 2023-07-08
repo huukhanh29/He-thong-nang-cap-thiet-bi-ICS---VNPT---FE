@@ -1,0 +1,132 @@
+
+<div class="container">
+  <div class="card-container">
+    <div class="card-column">
+      <mat-card>
+        <div class="form-container">
+
+          <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="form-field">
+              <mat-label>Chọn thiết bị</mat-label>
+              <mat-select formControlName="selectedDevice" required multiple>
+                <div class="scrollable-options">
+                  <mat-option *ngFor="let device of deviceList" [value]="device.id">
+                    <div class="device-name">{{ device.ten }}</div>
+                  </mat-option>
+                </div>
+              </mat-select>
+
+              <mat-error *ngIf="myForm.get('selectedDevice')?.errors?.['required'] && myForm.get('selectedDevice')?.touched">
+                Vui lòng chọn thiết bị
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field">
+              <mat-label>Chọn gói nâng cấp</mat-label>
+              <mat-select formControlName="selectedGoi" required (selectionChange)="onGoiSelectionChange($event)">
+                <mat-option *ngFor="let goi of goiList" [value]="goi.id">{{ goi.tenGoi }}</mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="myForm.get('selectedGoi')?.errors?.['required'] && myForm.get('selectedGoi')?.touched">
+                Vui lòng chọn gói nâng cấp
+              </mat-error>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button type="submit" color="primary">Nâng cấp</button>
+            <mat-spinner *ngIf="isLoading" color="warn" diameter="20"></mat-spinner>
+          </form>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="card-info">
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>Thông tin thiết bị:</strong>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            <div class="device-info-row">
+              <div *ngFor="let device of selectedDevices" class="device-item">
+                <div class="device-info">
+                  <p><strong>Tên:</strong> {{ device.ten }}</p>
+                  <p><strong>Địa chỉ:</strong> {{ diachi }}</p>
+                  <p><strong>Số điện thoại:</strong> {{ device.soDienThoai }}</p>
+                </div>
+                <button mat-icon-button color="warn" (click)="removeDevice(device)" class="delete-button">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>Thông tin gói nâng cấp:</strong>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description class="custom-description">
+            <ng-container *ngIf="goi">
+              <p><strong>Tên gói:</strong> {{ goi.tenGoi }}</p>
+              <p><strong>Tên file:</strong> {{ goi.noiLuu }}</p>
+              <p><strong>Mô tả:</strong> {{ goi.moTa }}</p>
+              <p><strong>Phiên bản:</strong> {{ goi.phienBan }}</p>
+              <p><strong>Nền tảng:</strong> {{ goi.nenTang.tenNenTang }}</p>
+            </ng-container>
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>Thiết bị hợp lệ:</strong>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            <div class="device-info-row">
+              <div *ngFor="let device of validDevices" class="device-item">
+                <div class="device-info">
+                  <p><strong>Tên:</strong> {{ device.ten }}</p>
+                  <p><strong>Địa chỉ:</strong> {{ diachi }}</p>
+                  <p><strong>Số điện thoại:</strong> {{ device.soDienThoai }}</p>
+                </div>
+              </div>
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>Thiết bị không hợp lệ:</strong>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            <div class="device-info-row">
+              <div *ngFor="let device of inValidDevices" class="device-item">
+                <div class="device-info">
+                  <p><strong>Tên:</strong> {{ device.ten }}</p>
+                  <p><strong>Địa chỉ:</strong> {{ diachi }}</p>
+                  <p><strong>Số điện thoại:</strong> {{ device.soDienThoai }}</p>
+                </div>
+              </div>
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+
+    </div>
+  </div>
+</div>
+

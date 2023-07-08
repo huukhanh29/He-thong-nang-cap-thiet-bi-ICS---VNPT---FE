@@ -1,0 +1,196 @@
+<div class="container">
+  <div>
+    <form>
+      <mat-form-field>
+        <mat-label>Chọn năm</mat-label>
+        <mat-select
+          [value]="selectedYear"
+          (selectionChange)="filterByYear($event.value)"
+        >
+          <mat-option [value]="'của tất cả năm'">Tất cả</mat-option>
+          <mat-option *ngFor="let year of namOptions" [value]="year">
+            {{ year }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button (click)="exportToExcel()" mat-raised-button color="accent">
+        Xuất excel
+      </button>
+    </form>
+    <table id="season-tble" class="table-none">
+      <tr></tr>
+      <tr>
+        <th>STT</th>
+        <th>Gói nâng cấp</th>
+        <th>Người nâng cấp</th>
+        <th>Thời điểm nâng cấp</th>
+        <th>Thời điểm nhận lệnh</th>
+        <th>Trạng thái</th>
+        <th>Thời điểm TC/TB</th>
+        <th>Lý do</th>
+      </tr>
+      <tr *ngFor="let data of dataExel; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ data.goiNangCap.tenGoi }}</td>
+        <td>{{ data.nguoiNangCap }}</td>
+        <td>{{ data.thoiDiemNangCap | date : "dd/MM/yyyy HH:mm:ss" }}</td>
+        <td>{{ data.thoiDiemNhanLenh | date : "dd/MM/yyyy HH:mm:ss" }}</td>
+        <td>
+          <ng-container *ngIf="data?.trangThai === 'THANH_CONG'"
+            >Thành công</ng-container
+          >
+          <ng-container *ngIf="data?.trangThai === 'THAT_BAI'"
+            >Thất bại</ng-container
+          >
+        </td>
+        <td>{{ data.thoiDiemTcTb | date : "dd/MM/yyyy HH:mm:ss" }}</td>
+        <td>{{ data.lyDo }}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="mat-elevation-z8">
+    <mat-spinner *ngIf="isLoading" color="warn" diameter="20"></mat-spinner>
+    <table mat-table [dataSource]="dataSource" matSort class="custom-table">
+      <!-- ID Column -->
+      <ng-container matColumnDef="stt">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="header-cell"
+        >
+          STT
+        </th>
+        <td mat-cell *matCellDef="let row; let i = index" class="data-cell">
+          <div class="column-header">STT</div>
+          <div class="column-value">{{ i + 1 }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Gói nâng cấp Column -->
+      <ng-container matColumnDef="goiNangCap">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="header-cell"
+        >
+          Gói nâng cấp
+        </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Gói nâng cấp</div>
+          <div class="column-value">{{ row.goiNangCap.tenGoi }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Người nâng cấp Column -->
+      <ng-container matColumnDef="nguoiNangCap">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="header-cell"
+        >
+          Người nâng cấp
+        </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Người nâng cấp</div>
+          <div class="column-value">{{ row.nguoiNangCap }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Thời điểm nâng cấp Column -->
+      <ng-container matColumnDef="thoiDiemNangCap">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="header-cell"
+        >
+          Thời điểm nâng cấp
+        </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Thời điểm nâng cấp</div>
+          <div class="column-value">
+            {{ row.thoiDiemNangCap | date : "dd/MM/yyyy HH:mm:ss" }}
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Lý do Column -->
+      <ng-container matColumnDef="lyDo">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="header-cell"
+        >
+          Lý do
+        </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Lý do</div>
+          <div class="column-value">
+            {{
+              row.lyDo?.length > 20
+                ? (row.lyDo | slice : 0 : 20) + "..."
+                : row.lyDo
+            }}
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="trangThai">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="header-cell"
+        >
+          Trạng thái
+        </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Trạng thái</div>
+          <div class="column-value">
+            <button
+              mat-icon-button
+              color="success"
+              *ngIf="row.trangThai === 'THANH_CONG'"
+            >
+              <mat-icon>check_circle</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="error"
+              *ngIf="row.trangThai === 'THAT_BAI'"
+            >
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Thông tin chi tiết -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"></th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Thông tin chi tiết</div>
+          <div class="column-value">
+            <button mat-icon-button color="primary" (click)="info(row.id)">
+              <mat-icon>info</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="custom-row"
+      ></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page of users"
+    ></mat-paginator>
+  </div>
+</div>

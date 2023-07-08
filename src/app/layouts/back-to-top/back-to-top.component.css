@@ -1,0 +1,25 @@
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  opacity: 0;
+  transition: all .2s ease-in-out;
+  font-size: 12px;
+  font-weight: bolder;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  background-color: #4008DE;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50%;
+  padding: 3px;
+  outline: none;
+  border: 1px solid #ccc;
+}
+
+.show-scrollTop {
+  opacity: 1;
+  transition: all .2s ease-in-out;
+}

@@ -1,0 +1,34 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [(opened)]="opened">
+    <app-menu></app-menu>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <button class="toggle-icon" (click)="opened=!opened">
+          <mat-icon class="toggle">menu</mat-icon>
+        </button>
+        <span class="example-spacer"></span>
+        <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" -->
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon class="logout">more_vert</mat-icon>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item class="example-icon" aria-label="Example icon-button with share icon"
+      (click)="openDialog()">
+        <mat-icon>logout</mat-icon> Đăng xuất
+      </button>
+      <button mat-menu-item class="example-icon" aria-label="Example icon-button with share icon"
+      (click)="DoiMatKhau()">
+        <mat-icon>lock</mat-icon> Đổi mật khẩu
+      </button>
+    </mat-menu>
+
+    <app-breadcrumbs></app-breadcrumbs>
+    <router-outlet></router-outlet>
+    <app-back-to-top></app-back-to-top>
+  </mat-sidenav-content>
+</mat-sidenav-container>

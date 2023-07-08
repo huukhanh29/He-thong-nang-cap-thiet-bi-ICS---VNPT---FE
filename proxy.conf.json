@@ -1,0 +1,21 @@
+{
+  "/token": {
+    "target": "http://10.82.24.11:30141/realms/ics/protocol/openid-connect",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/userinfo": {
+    "target": "http://10.82.24.11:30141/realms/ics/protocol/openid-connect",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api": {
+    "target": "http://192.168.78.163:8085/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+
+}

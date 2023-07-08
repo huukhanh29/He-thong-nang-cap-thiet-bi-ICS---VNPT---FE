@@ -1,0 +1,89 @@
+<div class="container">
+  <mat-form-field>
+    <mat-label>Tìm kiếm</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Nhập nội dung tìm kiếm ..." #input>
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <mat-spinner *ngIf="isLoading" color="warn" diameter="20"></mat-spinner>
+    <table mat-table [dataSource]="dataSource" matSort class="custom-table">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> STT </th>
+        <td mat-cell *matCellDef="let row; let i = index" class="data-cell">
+          <div class="column-header">STT</div>
+          <div class="column-value">{{ i + 1 }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Tên thiết bị Column -->
+      <ng-container matColumnDef="ten">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Tên </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Tên thiết bị</div>
+          <div class="column-value">{{ row.ten }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Serial Column -->
+      <ng-container matColumnDef="serial">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Serial </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Serial</div>
+          <div class="column-value">{{ row.serial }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Mac Column -->
+      <ng-container matColumnDef="mac">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Mac </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Mac</div>
+          <div class="column-value">{{ row.mac }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Số điện thoại Column -->
+      <ng-container matColumnDef="soDienThoai">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Số điện thoại </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Số điện thoại</div>
+          <div class="column-value">{{ row.soDienThoai }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Số loa Column -->
+      <ng-container matColumnDef="soLoa">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Số loa </th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Số loa</div>
+          <div class="column-value">{{ row.soLoa }}</div>
+        </td>
+      </ng-container>
+
+      <!-- Thông tin chi tiết Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"></th>
+        <td mat-cell *matCellDef="let row" class="data-cell">
+          <div class="column-header">Thông tin chi tiết</div>
+          <div class="column-value">
+            <button mat-icon-button color="primary" (click)="info(row.id)">
+              <mat-icon>info</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="custom-row"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>

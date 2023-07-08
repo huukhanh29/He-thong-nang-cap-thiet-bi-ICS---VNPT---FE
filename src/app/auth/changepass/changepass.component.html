@@ -1,0 +1,43 @@
+<form [formGroup]="myform" (ngSubmit)="savePass()">
+  <h1 mat-dialog-title>Đổi mật khẩu</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Mật khẩu cũ</mat-label>
+      <input formControlName="matKhauCu" matInput [type]="showMatKhauCu ? 'text' : 'password'" required>
+      <mat-icon matSuffix (click)="toggleMatKhauCu()">
+        {{ showMatKhauCu ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+      <mat-error *ngIf="formControls.matKhauCu.errors?.['required'] && formControls.matKhauCu.touched">
+        Chưa nhập mật khẩu cũ
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Mật khẩu mới</mat-label>
+      <input formControlName="matKhauMoi" matInput [type]="showMatKhauMoi ? 'text' : 'password'" required>
+      <mat-icon matSuffix (click)="toggleMatKhauMoi()">
+        {{ showMatKhauMoi ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+      <mat-error *ngIf="formControls.matKhauMoi.errors?.['required'] && formControls.matKhauMoi.touched">
+        Chưa nhập mật khẩu mới
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Xác nhận mật khẩu</mat-label>
+      <input formControlName="xnMatKhau" matInput [type]="showXnMatKhau ? 'text' : 'password'" required>
+      <mat-icon matSuffix (click)="toggleXnMatKhau()">
+        {{ showXnMatKhau ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+      <mat-error *ngIf="formControls.xnMatKhau.errors?.['required'] && formControls.xnMatKhau.touched">
+        Chưa xác nhận mật khẩu
+      </mat-error>
+      <p *ngIf="invalidPass" class="error">Xác nhận mật khẩu không đúng</p>
+    </mat-form-field>
+    <p *ngIf="invalidPassOld" class="error">Mật khẩu cũ sai</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button type="submit" color="primary">Lưu</button>
+    <button (click)="closePopup()" mat-raised-button color="warn">Đóng</button>
+  </div>
+</form>

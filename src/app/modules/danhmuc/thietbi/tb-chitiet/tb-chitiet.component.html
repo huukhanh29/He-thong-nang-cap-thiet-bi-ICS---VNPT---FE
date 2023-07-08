@@ -1,0 +1,22 @@
+
+<h1 mat-dialog-title>Thông tin chi tiết
+  <hr>
+</h1>
+
+<div mat-dialog-content>
+  <p><strong>Tên:</strong> {{ thietbi?.ten }}</p>
+  <p><strong>Serial:</strong> {{ thietbi?.serial }}</p>
+  <p><strong>Mac:</strong> {{ thietbi?.mac }}</p>
+  <p><strong>Số điện thoại:</strong> {{ thietbi?.soDienThoai }}</p>
+  <p><strong>Số loa:</strong> {{ thietbi?.soLoa }}</p>
+  <p><strong>Kinh độ:</strong> {{ thietbi?.kinhDo }}</p>
+  <p><strong>Vĩ độ:</strong> {{ thietbi?.viDo }}</p>
+  <p><strong>Đơn vị hành chính:</strong> {{ thietbi?.donViHanhChinh }}</p>
+  <p><strong>Ghi chú:</strong> {{ thietbi?.ghiChu }}</p>
+  <p><strong>Mã Model thiết bị:</strong> {{ thietbi?.maModelThietBi }}</p>
+  <p><strong>Mã loại thiết bị:</strong> {{ thietbi?.maLoaiThietBi }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="closePopup()">Đóng</button>
+</div>
+

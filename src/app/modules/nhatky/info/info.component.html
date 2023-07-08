@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Thông tin chi tiết<hr></h1>
+
+<div mat-dialog-content>
+  <p><strong>Gói nâng cấp:</strong> {{ nhatKy?.goiNangCap.tenGoi }}</p>
+  <p><strong>Người nâng cấp:</strong> {{ nhatKy?.nguoiNangCap }}</p>
+  <p><strong>Thời điểm nâng cấp:</strong>  {{ nhatKy?.thoiDiemNangCap | date : "dd/MM/yyyy HH:mm:ss" }}</p>
+  <p><strong>Thời điểm nhận lệnh:</strong>  {{ nhatKy?.thoiDiemNhanLenh | date : "dd/MM/yyyy HH:mm:ss" }}</p>
+  <p><strong>Thời điểm TC/TB:</strong> {{ nhatKy?.thoiDiemTcTb | date : "dd/MM/yyyy HH:mm:ss" }}</p>
+  <p><strong>Trạng thái: </strong>
+    <ng-container *ngIf="nhatKy?.trangThai === 'THANH_CONG'">Thành công</ng-container>
+    <ng-container *ngIf="nhatKy?.trangThai === 'THAT_BAI'">Thất bại</ng-container>
+  </p>
+  <p><strong>Lý do:</strong> {{ nhatKy?.lyDo }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="closePopup()">Đóng</button>
+</div>

@@ -1,0 +1,44 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+mat-sidenav-container {
+  min-height: 100vh;
+  width: 100%;
+}
+
+mat-toolbar {
+  background-color: #ffffff;
+}
+
+mat-sidenav {
+  background-color: #4008DE;
+}
+
+.toggle-icon {
+  background-color: #4008DE;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.toggle {
+  color: #ffffff;
+  font-size: 20px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.logout {
+  color: #333;
+}
+
+.layout-breadcrumb a{
+  display: flex;
+}
