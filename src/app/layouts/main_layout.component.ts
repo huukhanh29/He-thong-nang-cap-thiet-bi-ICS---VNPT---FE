@@ -28,9 +28,9 @@ export class MainLayoutComponent {
   constructor(private storageService: StorageService, private router: Router) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = this.storageService.isLoggedIn();
-    if (!this.isLoggedIn) {
-      this.router.navigate(['/login']);
-    }
+    // this.isLoggedIn = this.storageService.isLoggedIn();
+    // if (!this.isLoggedIn) {
+    //   this.router.navigate(['/login']);
+    // }
   }
 }

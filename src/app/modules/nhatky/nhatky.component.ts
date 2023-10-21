@@ -56,7 +56,6 @@ export class NhatkyComponent {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.dataExel = this.dataSource.filteredData;
-
       // Tạo danh sách các năm từ trường thoiDiemNangCap
       this.namOptions = Array.from(
         new Set(

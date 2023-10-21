@@ -34,12 +34,12 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.storageService.isLoggedIn()) {
-      this.isLoggedIn = true;
-      this.router.navigate(['/home']);
-    }
+    // if (this.storageService.isLoggedIn()) {
+    //   this.isLoggedIn = true;
+    //   this.router.navigate(['/home']);
+    // }
   }
-  
+
   submit() {
     const { username, password } = this.form;
     this.authService.login(username, password).subscribe({

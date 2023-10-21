@@ -17,7 +17,7 @@ mat-list-item a {
   font-size: 14px;
 }
 mat-list-item a:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(228, 138, 138, 0.3);
   border-radius: 10px;
 }
 mat-icon {
